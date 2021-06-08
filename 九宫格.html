@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JiuGongGeGame</title>
+    <!--<link href="九宫格.css" type="text/css" rel="stylesheet"/>-->
+    <style type="text/css">
+    *{
+        padding:0;margin:0;/*边框内边距为0，边框*/
+    }
+    body{
+        height: 100%;width: 100%;font-size: 12px;color: #333;
+    }
+    ul{
+        list-style: none;
+    }
+    #gezi{
+        width: 300px;height: 300px;margin: 20px auto 0;position: relative;
+    }
+    #gezi div{
+        width: 100px;height: 100px;text-align: center;font-size: 24px;border: 1px; color: #333;float: left;
+    }
+    /*#gezi.start{
+        position: absolute;left: 100px;top: 100px;height: 200px;width: 200px;background: #C33;font-size: 30px;text-align: center;
+    }*/
+
+    /*#gezi.gezi1{background:yellow;}
+    #gezi.gezi2{background:black;}-*/
+
+    #gezi .gezi1{background: rgb(227, 255, 150);}
+    #gezi .gezi2{background: skyblue;}
+    #gezi .gezi3{background:rgb(227, 255, 150);}
+    #gezi .gezi4{background: skyblue;}
+    #gezi .gezi5{background: rgb(227, 255, 150);}
+    #gezi .gezi6{background: skyblue;}
+    #gezi .gezi7{background:rgb(227, 255, 150);}
+    #gezi .gezi8{background: skyblue;}
+    /*#gezi .gezi9{background: #CC6;}
+    #gezi .gezi10{background: #F99;}
+    #gezi .gezi11{background: #CC6;}
+    #gezi .gezi12{background: #F99;}*/
+    #gezi .cent{background: yellow;}
+    #gezi .select{background: #F0F;}
+    #gezi .start{position: absolute;left: 100px;top: 100px;height: 100px;width: 100px;background: yellowgreen;font-size: 30px;text-align: center;cursor: pointer;line-height: 100px;color: #fff;}
+
+    </style>
+</head>
+<body>
+    <div id="gezi">
+        <div class="gezi gezi1">1</div>
+        <div  class="gezi gezi2">2</div>
+        <div  class="gezi gezi3">3</div>
+
+        <div  class="gezi gezi8">8</div>
+        <div  class="cent"></div>
+        <div  class="gezi gezi4">4</div>
+
+        <div  class="gezi gezi7">7</div>
+        <div  class="gezi gezi6">6</div>
+        <div  class="gezi gezi5">5</div>
+
+        <div  class="start">开始</div>
+    </div>
+</body>
+
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var count=3;/**/
+        var i=null;
+        var speed=80;
+        var ok=null;/*标记中奖位置*/
+        var count=null;/*总变化次数*/
+        var nowcount=null;/*当前变化位置*/
+        var n=5;/*圈数*/
+        var paly=false;
+        var xq=0;
+        function dong(){
+            if(nowcount>count){
+                setTimeout(function(){
+                    paly=false;
+                    alert("抽中了"+eval(ok)+"等奖！");
+                },500);/*setTimeout只能执行code一次，500毫秒为执行代码前的等待时间*/
+            }
+            else{
+                nowcount+=1;
+                if(i>12){
+                    xq+=1;
+                    if(xq==(n-1)){
+                        speed=300;
+                    };
+                $("#gezi").removeClass("select");
+                $(".gezi8").addClass("select");
+                i=0;
+                }
+                else{
+                    $("#gezi").removeClass("select");
+                    $(".gezi"+i+1).addClass("select");
+                    i+=1;
+                };
+            setTimeout(dong,speed);
+            };
+        };
+        $(".start").click(function(){
+            if(!paly){
+                if(count==0){
+                    alert("机会已用尽！谢谢参与！");
+                }
+                else{
+                    ok=Math.floor((Math.random()*8+1));
+                    count=n*8+ok;
+                    nowcount=0;
+                    i=0;
+                    paly=true;
+                    count=-1;
+                    dong();
+                };
+            };
+        });
+    });
+</script>
+</html>
